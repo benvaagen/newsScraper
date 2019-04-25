@@ -9,11 +9,11 @@ var PORT = process.env.PORT || 3000;
 
 var app = express();
 
-//SET UP AN EXPRESS ROUTER
-var router = express.Router();
+// //SET UP AN EXPRESS ROUTER
+// var router = express.Router();
 
 //REQUIRE ROUTES FILE
-require("./config/routes")(router);
+const routes = require("./config/routes");
 
 //PUBLIC FOLDER AS STATIC DIRECTORY
 app.use(express.static(__dirname + "/public"));
@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 //DESIGNATE ROUTER MIDDLEWARE
-app.use(router);
+app.use(routes);
 
 //IF DEPLOYED, USE THE DEPLOYED DATABASE. OTHERWISE, USE THE LOCAL MONGOHEADLINES DB
 var db = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";

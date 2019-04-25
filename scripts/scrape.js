@@ -7,7 +7,7 @@ var cheerio = require('cheerio');
 
 var scrape = function(cb) {
 
-    request("http://www.newyorktimes.com"), function(err, res, body){
+    request("http://www.newyorktimes.com", function(err, res, body){
         
     var $ = cheerio.load(body);
         
@@ -31,6 +31,6 @@ var scrape = function(cb) {
             }
         });
         cb(articles);
-    }};
+    })};
 
     module.exports = scrape;
