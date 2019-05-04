@@ -13,10 +13,13 @@ initPage();
 function initPage() {
     //EMPTY ARTICLE CONTAINER AND AJAX REQUEST FOR UNSAVED HEADLINES
     $(".article-container").empty();
-    $.get("/api/headlines?saved=false")
+    $.get("/api/headlines")
     .then(function(data){
+        console.log(data);
+        
         //IF THERE ARE HEADLINES, RENDER THEM TO THE PAGE
         if (data && data.length) {
+            // console.log(data);
             renderArticles(data);
         }
         else{
@@ -29,9 +32,12 @@ function initPage() {
 function renderArticles(articles){
     //APPEND ARTICLE DATA TO PAGE
     var articlePanels = [];
+
     //PASS JSON INTO CREATE ARTICLE FUNCTION, BOOTSTRAP CREATES A PANEL WITH OUR INFO INSIDE
-    for (var i = 0; i < articles.length; i++);
-    articlePanels.push(createPanel(articles[i]));
+    for (var i = 0; i < articles.length; i++) {
+        articlePanels.push(createPanel(articles[i]));
+    }
+    
     //APPEND ARTICLE PANELS ARRAY TO ARTICLE PANELS CONTAINER
     $(".article-container").append(articlePanels);
 }
@@ -53,8 +59,11 @@ function createPanel(article){
     "</div>",
     "</div>"]
     .join(""));
+
     // ATTACH ARTICLE ID TO JQUERY ELEMENT
     panel.data("_id", article.id);
+    // console.log(panel);
+    // container.append(panel);
     return panel;
 }
 
@@ -102,6 +111,6 @@ function handleArticleScrape() {
     .then(function(data){
         //A SUCCESSFUL SCRAPE OF THE NY TIMES THIS WILL COMPARE THE ARTICLES WITH THOSE ALREADY IN THE COLLECTION AND RE-RENDER THE ARTICLES ON THE PAGE AND GIVE A NUMBER ARTICLES THERE ARE
         initPage();
-        bootbox.alert("<h3 class='text-center m-top-80')>" + data.mesesage + "<h3>");
+        bootbox.alert("<h3 class='text-center m-top-80')>" + data.message + "<h3>");
     })
 }

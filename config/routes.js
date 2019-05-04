@@ -21,7 +21,6 @@ router.get("/saved", function(req, res) {
 });
 
 router.get("/api/fetch", function(req, res) {
-    console.log("WORKING");
     headlinesController.fetch(function(err, docs) {
         console.log('headlines result', docs);
         if (!docs || docs.insertedCount === 0) {
@@ -31,7 +30,7 @@ router.get("/api/fetch", function(req, res) {
         }
         else {
             res.json({
-                message: "Added " + docs.insertedCount + " new articles!"
+                message: "Added " + docs.length + " new articles!"
             });
         }
     });
