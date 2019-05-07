@@ -5,7 +5,7 @@ $(document).ready(function(){
     //ADD EVENT LISTENERS FOR DYNAMICALLY GENERATED BUTTONS FOR DELETING ARTICLES, VIEWING ARTICLE NOTES, SAVING ARTICLE NOTES, AND DELETING ARTICLE NOTES
     $(document).on("click", ".btn.delete", handleArticleDelete);
     $(document).on("click", ".btn.notes", handleArticleNotes);
-    $(document).on("click", ".btn.save", handleNoteSave);
+    $(document).on("click", ".btn-save", handleNoteSave);
     $(document).on("click", ".btn.note-delete", handleNoteDelete);
 
     //STARTS THINGS WHEN PAGE IS LOADED
@@ -26,6 +26,7 @@ $(document).ready(function(){
     }
 
     function renderArticles(articles) {
+        console.log(articles, "saved.js:29");
         //THIS FUNCTION HANDLES APPENDING HTML CONTAINING ARTICLE DATA TO THE PAGE; PASSED AN ARRAY OF JSON CONTAINING ALL AVAILABLE ARTICLES IN OUR DB
         var articlePanels = [];
         //PASS EACH ARTICLE JSON OBJECT TO THE CREATEPANEL FUNCTION WHICH RETURNS A BOOTSTRAP PANEL WITH ARTICLE DATA INSIDE
@@ -33,27 +34,30 @@ $(document).ready(function(){
             articlePanels.push(createPanel(articles[i]));
         }
         //ONCE ALL OF THE HTML FOR THE ARTICLES STORED IN THE ARTICLEPANELS ARRAY, APPEND TO THE ARTICLEPANELS CONTAINER
+        console.log(articlePanels, "saved.js:36");
         $(".article-container").append(articlePanels);
     }
     
-    function createPanel(article) {
+    function createPanel(article){
+        // console.log(article, "saved.js:42");
         //THIS FUNCTION TAKES IN A SINGLE JSON OBJECT FOR AN ARTICLE/HEADLINE AND CONSTRUCTS A JQUERY ELEMENT CONTAINING ALL OF THE FORMATTED HTML FOR THE ARTICLE PANEL
         var panel =
-            $(["div class='panel panel-default'>",
+            $(["<div class='panel panel-default'>",
             "<div class='panel-heading'>",
             "<h3>",
             article.headline,
+            "</h3>",
+            "</div>",
+            "<div class='panel-body'>",
+            `<img src='${article.summary}'>`,
             "<a class='btn btn-danger delete'>",
             "Delete From Saved",
             "</a>",
             "<a class='btn btn-info notes'>Article Notes</a>",
-            "</h3>",
-            "</div>",
-            "<div class='panel-body'>",
-            article.summary,
             "</div>",
             "</div>"
         ].join(""));
+        console.log('panel ----->', panel);
         //ATTACH THE ARTICLE'S ID TO THE JQUERY ELEMENT TO BE USED WHEN TRYING TO FIGURE OUT WHICH ARTICLE THE USER WANTS TO REMOVE OR OPEN NOTES FOR
         panel.data("_id", article._id);
         //RETURN THE CONSTRUCTED PANEL JQUERY ELEMENT
@@ -75,7 +79,7 @@ $(document).ready(function(){
         "</div>"
     ].join(""));
     //APPEND THIS DATA TO PAGE
-    articleContainer.append(emptyAlert); 
+    $(".article-container").append(emptyAlert); 
     }
 
     function renderNoteList(data) {

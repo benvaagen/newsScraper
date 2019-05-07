@@ -20,6 +20,11 @@ router.get("/saved", function(req, res) {
     res.render("saved");
 });
 
+//RETREIVING SAVED ARTICLES FOR PLACEMENT IN THE SAVED PANEL
+router.get("/api/headlines?saved=true", function(req, res) {
+    headlinesController.findSaved(req.query);
+})
+
 router.get("/api/fetch", function(req, res) {
     headlinesController.fetch(function(err, docs) {
         console.log('headlines result', docs);
@@ -54,7 +59,8 @@ router.delete("/api/headlines/:id", function(req, res){
     });
 });
 router.patch("/api/headlines", function (req, res) {
-    healinesController.update(req.body, function(err, data) {
+    console.log(req.body, "routes:56");
+    headlinesController.update(req.body, function(err, data) {
         res.json(data);
     });
 });

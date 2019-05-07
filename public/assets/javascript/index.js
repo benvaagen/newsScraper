@@ -2,11 +2,10 @@ $(document).ready(function() {
     //SET ARTICLE CONTAINER WHERE ALL DYNAMIC CONTENT WILL GO
     var articleContainer = $(".article-container");
     //ADD EVENT LISTENERS TO DYNAMICALLY GENERATED "SAVE ARTICLE"
-    $(document).on("click", ".btn.save", handleArticleSave);
+    $(document).on("click", ".btn-save", handleArticleSave);
     //ADD SCRAPE NEW ARTICLE BUTTONS
     $(document).on("click", ".scrape-new", handleArticleScrape);
 })
-
 
 initPage();
 
@@ -47,23 +46,22 @@ function createPanel(article){
     var panel = 
     $(["<div class='panel panel-default'>",
     "<div class='panel-heading'>",
-    "<h3>",
+    "<h4>",
     article.headline,
-    "<a class='btn save'>",
-    "Save Article",
-    "</a>",
-    "</h3>",
+    "</h4>",
     "</div>",
     "<div class='panel-body'>",
-    article.summary,
+    `<img src='${article.summary}'>`,
     "</div>",
+    "<a class='btn-save'>",
+    "Save Article",
+    "</a>",
     "</div>"]
     .join(""));
 
     // ATTACH ARTICLE ID TO JQUERY ELEMENT
-    panel.data("_id", article.id);
-    // console.log(panel);
-    // container.append(panel);
+    panel.data("_id", article._id);
+    
     return panel;
 }
 
@@ -74,7 +72,7 @@ function renderEmpty() {
     "</div>",
     "<div class='panel panel-default'>",
     "<div class='panel-heading text-center>",
-    "<h3>What Do You Want To Do?</h3>",
+    "<h4>What Do You Want To Do?</h4>",
     "<div class='panel-body text-center>",
     "<h4><a class='scrape-new>Scrape New Articles</a></h4>",
     "<h4><a href='/saved>Go To Saved Articles</a></h4>",
@@ -88,6 +86,7 @@ function renderEmpty() {
 function handleArticleSave() {
     //THIS FUNCTION WHEN A USER SAVES AN ARTICLE
     var articleToSave = $(this).parents(".panel").data();
+    console.log("article to save index.js:88", articleToSave);
     articleToSave.saved = true;
     //USE THE PATCH METHOD SINCE THIS IS AN UPDATE TO AN EXISTING RECORD IN OUR COLLECTION
     $.ajax({

@@ -31,13 +31,18 @@ module.exports = {
         .exec(function (err, doc) {
             cb(doc)
         });
-        // .exec(
-        //     cb(doc)
-        // );
+        
     },
     update: function(query, cb) {
         Headline.update({_id: query._id}, {
             $set: query
         }, {}, cb);
+    },
+    findSaved: function(query, cb) {
+        Headline.find(query)
+        .exec(function (err, doc) {
+            console.log(doc, "headlines.js:44");
+            cb(doc)
+        });
     }
 }
