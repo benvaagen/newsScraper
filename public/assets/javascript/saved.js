@@ -143,8 +143,8 @@ $(document).ready(function(){
                 "<hr />",
                 "<ul class='list-group note-container'>",
                 "</ul>",
-                "<textarea placeholder='New Note' rows='4' cols='60></textarea>",
-                "<button class='btn btn-success save'>Save Note</button>",
+                "<textarea placeholder='New Note' rows='4' cols='60'></textarea>",
+                "<button class='btn btn-success'>Save</button>",
                 "</div>"
             ].join();
             //ADD THE FORMATTED HTML TO NOTE MODAL

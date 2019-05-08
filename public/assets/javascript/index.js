@@ -49,14 +49,16 @@ function createPanel(article){
     "<h4>",
     article.headline,
     "</h4>",
-    "</div>",
+    
     "<div class='panel-body'>",
     `<img src='${article.summary}'>`,
+    "</div>",
     "</div>",
     "<a class='btn-save'>",
     "Save Article",
     "</a>",
-    "</div>"]
+    "</div>",
+    "<hr>"]
     .join(""));
 
     // ATTACH ARTICLE ID TO JQUERY ELEMENT
